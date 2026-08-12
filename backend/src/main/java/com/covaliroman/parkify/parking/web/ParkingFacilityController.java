@@ -7,6 +7,7 @@ import com.covaliroman.parkify.parking.application.service.ParkingFacilityServic
 import com.covaliroman.parkify.parking.web.dto.ChangeParkingFacilityStatusRequest;
 import com.covaliroman.parkify.parking.web.dto.CreateParkingFacilityRequest;
 import com.covaliroman.parkify.parking.web.dto.UpdateParkingFacilityRequest;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,8 +23,11 @@ import java.net.URI;
 import java.util.List;
 import java.util.UUID;
 
+import static com.covaliroman.parkify.config.OpenApiConfig.FACILITIES_TAG;
+
 @RestController
 @RequestMapping("/api/parking-facilities")
+@Tag(name = FACILITIES_TAG)
 public class ParkingFacilityController {
 
     private final ParkingFacilityService service;

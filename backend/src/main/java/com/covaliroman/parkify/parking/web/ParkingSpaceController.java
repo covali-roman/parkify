@@ -6,6 +6,7 @@ import com.covaliroman.parkify.parking.application.service.ParkingSpaceService;
 import com.covaliroman.parkify.parking.web.dto.ChangeParkingSpaceStatusRequest;
 import com.covaliroman.parkify.parking.web.dto.ChangeParkingSpaceTypeRequest;
 import com.covaliroman.parkify.parking.web.dto.CreateParkingSpaceRequest;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,8 +21,11 @@ import java.net.URI;
 import java.util.List;
 import java.util.UUID;
 
+import static com.covaliroman.parkify.config.OpenApiConfig.SPACES_TAG;
+
 @RestController
 @RequestMapping("/api")
+@Tag(name = SPACES_TAG)
 public class ParkingSpaceController {
 
     private final ParkingSpaceService service;

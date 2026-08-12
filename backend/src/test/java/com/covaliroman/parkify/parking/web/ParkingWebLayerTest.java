@@ -13,10 +13,12 @@ import com.covaliroman.parkify.parking.application.exception.ParkingLevelCodeAlr
 import com.covaliroman.parkify.parking.application.service.ParkingFacilityService;
 import com.covaliroman.parkify.parking.application.service.ParkingLevelService;
 import com.covaliroman.parkify.parking.application.service.ParkingSpaceService;
+import com.covaliroman.parkify.config.OpenApiConfig;
 import com.covaliroman.parkify.parking.domain.ParkingFacilityStatus;
 import com.covaliroman.parkify.parking.domain.ParkingSpaceStatus;
 import com.covaliroman.parkify.parking.domain.ParkingSpaceType;
 import com.covaliroman.parkify.parking.web.error.ApiExceptionHandler;
+import io.swagger.v3.oas.models.OpenAPI;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,13 +51,16 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
         ParkingLevelController.class,
         ParkingSpaceController.class
 })
-@Import(ApiExceptionHandler.class)
+@Import({ApiExceptionHandler.class, OpenApiConfig.class})
 class ParkingWebLayerTest {
 
     private static final Instant NOW = Instant.parse("2026-08-12T08:00:00Z");
 
     @Autowired
     private MockMvc mockMvc;
+
+    @Autowired
+    private OpenAPI openApi;
 
     @MockitoBean
     private ParkingFacilityService facilityService;
@@ -65,6 +70,19 @@ class ParkingWebLayerTest {
 
     @MockitoBean
     private ParkingSpaceService spaceService;
+
+    @Test
+    void shouldConfigureGlobalOpenApiDocumentation() {
+        assertThat(openApi.getInfo().getTitle()).isEqualTo("Parkify API");
+        assertThat(openApi.getInfo().getVersion()).isEqualTo("v1");
+        assertThat(openApi.getTags())
+                .extracting(io.swagger.v3.oas.models.tags.Tag::getName)
+                .containsExactly(
+                        "Parking facilities",
+                        "Parking levels",
+                        "Parking spaces"
+                );
+    }
 
     @Test
     void shouldCreateParkingFacility() throws Exception {

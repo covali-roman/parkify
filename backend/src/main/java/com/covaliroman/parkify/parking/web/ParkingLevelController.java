@@ -6,6 +6,7 @@ import com.covaliroman.parkify.parking.application.dto.UpdateParkingLevelCommand
 import com.covaliroman.parkify.parking.application.service.ParkingLevelService;
 import com.covaliroman.parkify.parking.web.dto.CreateParkingLevelRequest;
 import com.covaliroman.parkify.parking.web.dto.UpdateParkingLevelRequest;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,8 +21,11 @@ import java.net.URI;
 import java.util.List;
 import java.util.UUID;
 
+import static com.covaliroman.parkify.config.OpenApiConfig.LEVELS_TAG;
+
 @RestController
 @RequestMapping("/api")
+@Tag(name = LEVELS_TAG)
 public class ParkingLevelController {
 
     private final ParkingLevelService service;
