@@ -1,4 +1,4 @@
-package io.github.username.parkify.parking.domain;
+package com.covaliroman.parkify.parking.domain;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
